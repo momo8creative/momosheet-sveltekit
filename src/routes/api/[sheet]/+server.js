@@ -3,11 +3,12 @@ import db from '$lib/database'
 
 export const GET = async (event) => {
 	const { sheet } = event.params
-	const limit = event.url.searchParams.get('limit')
-	const skip = event.url.searchParams.get('skip')
+	const search = Object.fromEntries(event.url.searchParams)
+	// const limit = event.url.searchParams.get('limit')
+	// const skip = event.url.searchParams.get('skip')
 	const api_key = event.request.headers.get('api-key')
 
-	const respon = await db.client.find({ api_key, sheet, limit, skip })
+	const respon = await db.client.find({ api_key, sheet, ...search })
 
 	return json(respon)
 }

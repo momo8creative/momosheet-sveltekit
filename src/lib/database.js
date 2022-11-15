@@ -1,8 +1,8 @@
 import { PUBLIC_API_URL } from '$env/static/public'
-import { error } from '@sveltejs/kit'
+// import { error } from '@sveltejs/kit'
 
 const fectData = async (q) => {
-	// console.log('q', q)
+	console.log('q', q)
 	const time = new Date().getTime().toString()
 
 	const res = await fetch(PUBLIC_API_URL + '?q=' + JSON.stringify(q) + '&_=' + time)
@@ -10,7 +10,8 @@ const fectData = async (q) => {
 		return await res.json()
 	}
 	console.log(res)
-	throw error(500, 'Gagal fetch data !')
+	return { error: true, status: 500, message: 'Gagal fetch data !' }
+	// throw error(500, 'Gagal fetch data !')
 }
 
 const client = {
